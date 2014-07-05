@@ -23,18 +23,19 @@ class App(wx.App):
         
         self._panel = wx.Panel(self._win)
         
-        title = wx.StaticText(self._panel, label="帕斯婷系统上线工具")
+        title = wx.StaticText(self._panel, label="帕斯婷系统上线工具",)
         font = wx.Font(14, wx.DECORATIVE, wx.NORMAL, wx.BOLD)  
         title.SetFont(font)
         hr = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
+        hr1 = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         
-        devCheck = wx.CheckBox(self._panel, 10001, label="dev.(skin/mall).ptp.cn [手机端]")
+        devCheck = wx.CheckBox(self._panel, 10001, label="dev.(skin/mall).ptp.cn [手机端]  ")
         devCheck.SetValue(False)
-        skinCheck = wx.CheckBox(self._panel, 10002, label="(skin/mall).ptp.cn [手机端]")
+        skinCheck = wx.CheckBox(self._panel, 10002, label="(skin/mall).ptp.cn [手机端]  ")
         skinCheck.SetValue(False)
-        aboutCheck = wx.CheckBox(self._panel, 10003, label="about.ptp.cn")
+        aboutCheck = wx.CheckBox(self._panel, 10003, label="about.ptp.cn  ")
         aboutCheck.SetValue(False)
-        brandCheck = wx.CheckBox(self._panel, 10004, label="brand.ptp.cn")
+        brandCheck = wx.CheckBox(self._panel, 10004, label="brand.ptp.cn  ")
         brandCheck.SetValue(False)
         wwwCheck = wx.CheckBox(self._panel, 10005, label="www.ptp.cn")
         wwwCheck.SetValue(False)
@@ -46,33 +47,29 @@ class App(wx.App):
         self.infoText = wx.TextCtrl(self._panel,style=wx.TE_MULTILINE | wx.HSCROLL)
         
         tbox = wx.BoxSizer(wx.VERTICAL)
-        tbox.Add(title, proportion=0, flag=wx.ALIGN_CENTER)
+        tbox.Add(title, proportion=1, flag=wx.ALIGN_CENTER)
         tbox.Add(hr, proportion=0, flag=wx.EXPAND)
         
-        cbox = wx.BoxSizer(wx.VERTICAL)
+        cbox = wx.BoxSizer()
         cbox.Add(devCheck,proportion=0)
         cbox.Add(skinCheck,proportion=0)
         cbox.Add(aboutCheck,proportion=0)
         cbox.Add(brandCheck,proportion=0)
-        cbox.Add(wwwCheck,proportion=0)
-       
-        hbox = wx.BoxSizer(wx.VERTICAL)
-        hbox.Add(tbox, proportion=0)
-        hbox.Add(cbox, proportion=0)
-        hbox.Add(self.saveBtn,proportion=0, flag=wx.RIGHT, border=5)
+        cbox.Add(wwwCheck,proportion=0)   
         
         bbox = wx.BoxSizer(wx.VERTICAL)
-        bbox.Add(hbox, proportion=0)
+        bbox.Add(tbox, proportion=0, flag=wx.EXPAND)
+        bbox.Add(cbox, proportion=0, flag=wx.CENTER)
+        bbox.Add(hr1, proportion=0, flag=wx.EXPAND)
+        bbox.Add(self.saveBtn,proportion=0, flag=wx.CENTER, border=5)
         bbox.Add(self.infoText, proportion=1, flag=wx.EXPAND)
         
         self._panel.SetSizer(bbox)
-        
+
+        self._win.Center() 
         self._win.Show()
-        
     
         '''
-        win.Center()  
-        win.Show() 
         wx.Button(win, label="open",pos=(225,5), size=(80,25))
         wx.Button(win, label="save",pos=(315,5), size=(80,25))
         wx.TextCtrl(win, pos=(5,35), size=(575,300), style=wx.TE_MULTILINE | wx.HSCROLL)
@@ -116,7 +113,7 @@ class App(wx.App):
 
         import socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.setdefaulttimeout(1)
+        socket.setdefaulttimeout(10)
         try:
             sock.connect(('192.168.77.200', 8001))
             sock.send(text)  
