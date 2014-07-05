@@ -12,6 +12,8 @@ class App(wx.App):
     _panel = None
     
     checked = []
+    infoText = None
+    saveBtn = None
     
     def main(self):
         app=wx.App()  
@@ -39,9 +41,9 @@ class App(wx.App):
         self._win.Bind(wx.EVT_CHECKBOX, self.ONCheck)
         
         
-        saveBtn = wx.Button(self._panel, label="提交")
-        self._win.Bind(wx.EVT_BUTTON, self.saveBtnClick, saveBtn)
-        infoText = wx.TextCtrl(self._panel,style=wx.TE_MULTILINE | wx.HSCROLL)
+        self.saveBtn = wx.Button(self._panel, label="提交")
+        self._win.Bind(wx.EVT_BUTTON, self.saveBtnClick, self.saveBtn)
+        self.infoText = wx.TextCtrl(self._panel,style=wx.TE_MULTILINE | wx.HSCROLL)
         
         tbox = wx.BoxSizer(wx.VERTICAL)
         tbox.Add(title, proportion=0, flag=wx.ALIGN_CENTER)
@@ -57,11 +59,11 @@ class App(wx.App):
         hbox = wx.BoxSizer(wx.VERTICAL)
         hbox.Add(tbox, proportion=0)
         hbox.Add(cbox, proportion=0)
-        hbox.Add(saveBtn,proportion=0, flag=wx.RIGHT, border=5)
+        hbox.Add(self.saveBtn,proportion=0, flag=wx.RIGHT, border=5)
         
         bbox = wx.BoxSizer(wx.VERTICAL)
         bbox.Add(hbox, proportion=0)
-        bbox.Add(infoText, proportion=1, flag=wx.EXPAND)
+        bbox.Add(self.infoText, proportion=1, flag=wx.EXPAND)
         
         self._panel.SetSizer(bbox)
         
@@ -93,9 +95,10 @@ class App(wx.App):
         if 10005==id: return ("www.ptp.cn","www.ptp.cn")
     
     def saveBtnClick(self, event):
-        dlg=wx.MessageDialog(None,"Is this explanation OK?","A Message Box",wx.YES_NO|wx.ICON_QUESTION)
+        dlg=wx.MessageDialog(None,"确定提交吗?","提示信息",wx.YES_NO|wx.ICON_QUESTION)
         retCode = dlg.ShowModal()
         if (retCode == wx.ID_YES):
+            self.saveBtn.Enable(False)
             self.runSocket()
         dlg.Destroy()
 
@@ -106,12 +109,14 @@ class App(wx.App):
             text = text+','.join(lists)
             if i<len(self.checked): text = text + "|"
             i=i+1
-        print text
-        if not text: return False
+        if not text:
+            self.saveBtn.Enable(True)
+            return False
         #print text
 
         import socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket.setdefaulttimeout(1)
         try:
             sock.connect(('192.168.77.200', 8001))
             sock.send(text)  
@@ -120,11 +125,16 @@ class App(wx.App):
             for buf in bufs.split(","):
                 i=i+1
                 if 3>=i: continue
-                print buf.replace('\\r\\n', '').replace('\\n', '').replace('\'', '').replace('[', '').replace(']', '')
+                msg = buf.replace('\\r\\n', '').replace('\\n', '').replace('\'', '').replace('[', '').replace(']', '')
+                self.infoText.SetValue(self.infoText.GetValue()+"\n"+msg)
+                self.saveBtn.Enable(True)
         except socket.error, arg:
                 (errno, err_msg) = arg
-                print "Connect server failed: %s, errno=%d" % (err_msg, errno)
+                msg = "服务器连接失败: %s, errno=%d, 请关闭程序后重新打开连接" % (err_msg, errno)
+                self.infoText.SetValue(msg)
+                #self.saveBtn.Enable(True)
         sock.close()
+
 
 if __name__ == '__main__':  
     App().main()
