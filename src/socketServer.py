@@ -16,10 +16,11 @@ if __name__ == '__main__':
 			connection.settimeout(5)  
 			buf = connection.recv(1024)
 			bufs = buf.split("|")
+			tmp = ""
 			for bf in bufs:
 				host,dir= bf.split(",")
-				tmp = os.popen('python ssh.py '+host+ ' ' +dir).readlines()
-				connection.send(str(tmp))
+				tmp = tmp + str(os.popen('python ssh.py '+host+ ' ' +dir).readlines())
+			connection.send(tmp)
 		except socket.timeout:  
 			print 'time out'  
 		connection.close()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# coding: utf-8
+# -*- coding: gbk -*- 
 
 from wx import wx
 
@@ -18,20 +18,20 @@ class App(wx.App):
     def main(self):
         app=wx.App()  
         #win=wx.Frame(None,-1,'Icon',wx.DefaultPosition,wx.Size(350,300))
-        self._win=wx.Frame(None, title="å¸•æ–¯å©·ç³»ç»Ÿä¸Šçº¿å·¥å…·", size=(600,400))  
+        self._win=wx.Frame(None, title="ÅÁË¹æÃÏµÍ³ÉÏÏß¹¤¾ß", size=(700,300))  
         #frame.SetIcon(wx.Icon('ico.ico',wx.BITMAP_TYPE_ICO))
         
         self._panel = wx.Panel(self._win)
         
-        title = wx.StaticText(self._panel, label="å¸•æ–¯å©·ç³»ç»Ÿä¸Šçº¿å·¥å…·",)
+        title = wx.StaticText(self._panel, label="ÅÁË¹æÃÏµÍ³ÉÏÏß¹¤¾ß",)
         font = wx.Font(14, wx.DECORATIVE, wx.NORMAL, wx.BOLD)  
         title.SetFont(font)
         hr = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         hr1 = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         
-        devCheck = wx.CheckBox(self._panel, 10001, label="dev.(skin/mall).ptp.cn [æ‰‹æœºç«¯]  ")
+        devCheck = wx.CheckBox(self._panel, 10001, label="dev.(skin/mall).ptp.cn [ÊÖ»ú¶Ë]  ")
         devCheck.SetValue(False)
-        skinCheck = wx.CheckBox(self._panel, 10002, label="(skin/mall).ptp.cn [æ‰‹æœºç«¯]  ")
+        skinCheck = wx.CheckBox(self._panel, 10002, label="(skin/mall).ptp.cn [ÊÖ»ú¶Ë]  ")
         skinCheck.SetValue(False)
         aboutCheck = wx.CheckBox(self._panel, 10003, label="about.ptp.cn  ")
         aboutCheck.SetValue(False)
@@ -42,7 +42,7 @@ class App(wx.App):
         self._win.Bind(wx.EVT_CHECKBOX, self.ONCheck)
         
         
-        self.saveBtn = wx.Button(self._panel, label="æäº¤")
+        self.saveBtn = wx.Button(self._panel, label="Ìá½»")
         self._win.Bind(wx.EVT_BUTTON, self.saveBtnClick, self.saveBtn)
         self.infoText = wx.TextCtrl(self._panel,style=wx.TE_MULTILINE | wx.HSCROLL)
         
@@ -84,15 +84,15 @@ class App(wx.App):
         else: 
             self.checked.remove(self.checkIdValMap(sender.GetId()))
     
-    def checkIdValMap(self, id):
-        if 10001==id: return ("dev.skin.ptp.cn","dev/skin.ptp.cn")
-        if 10002==id: return ("skin.ptp.cn","skin.ptp.cn")
-        if 10003==id: return ("about.ptp.cn","about.ptp.cn")
-        if 10004==id: return ("brand.ptp.cn","brand.ptp.cn")
-        if 10005==id: return ("www.ptp.cn","www.ptp.cn")
+    def checkIdValMap(self, ids):
+        if 10001==ids: return ("dev.skin.ptp.cn","dev/skin.ptp.cn")
+        if 10002==ids: return ("skin.ptp.cn","skin.ptp.cn")
+        if 10003==ids: return ("about.ptp.cn","about.ptp.cn")
+        if 10004==ids: return ("brand.ptp.cn","brand.ptp.cn")
+        if 10005==ids: return ("www.ptp.cn","www.ptp.cn")
     
     def saveBtnClick(self, event):
-        dlg=wx.MessageDialog(None,"ç¡®å®šæäº¤å—?","æç¤ºä¿¡æ¯",wx.YES_NO|wx.ICON_QUESTION)
+        dlg=wx.MessageDialog(None,"È·¶¨Ìá½»Âğ?","ÌáÊ¾ĞÅÏ¢",wx.YES_NO|wx.ICON_QUESTION)
         retCode = dlg.ShowModal()
         if (retCode == wx.ID_YES):
             self.saveBtn.Enable(False)
@@ -113,28 +113,28 @@ class App(wx.App):
 
         import socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.setdefaulttimeout(10)
+        #socket.setdefaulttimeout(10)
         try:
             sock.connect(('192.168.77.200', 8001))
             sock.send(text)  
-            bufs = sock.recv(1024)
+            bufs = sock.recv(10024)
             i=0
             for buf in bufs.split(","):
                 i=i+1
-                if 3>=i: continue
-                msg = buf.replace('\\r\\n', '').replace('\\n', '').replace('\'', '').replace('[', '').replace(']', '')
+                #if 3>=i: continue
+                msg = buf.replace('\\r\\n', '').replace('\'', '').replace('[', '').replace(']', '').replace('\\n', '')
                 self.infoText.SetValue(self.infoText.GetValue()+"\n"+msg)
                 self.saveBtn.Enable(True)
-        except socket.error, arg:
-                (errno, err_msg) = arg
-                msg = "æœåŠ¡å™¨è¿æ¥å¤±è´¥: %s, errno=%d, è¯·å…³é—­ç¨‹åºåé‡æ–°æ‰“å¼€è¿æ¥" % (err_msg, errno)
-                self.infoText.SetValue(msg)
-                #self.saveBtn.Enable(True)
+        #except socket.error, arg:
+        #        (errno, err_msg) = arg
+        #        msg = "·şÎñÆ÷Á¬½ÓÊ§°Ü: %s, errno=%d, Çë¹Ø±Õ³ÌĞòºóÖØĞÂ´ò¿ªÁ¬½Ó" % (err_msg, errno)
+        except:
+            msg = "·şÎñÆ÷Á¬½ÓÊ§°Ü, Çë¹Ø±Õ³ÌĞòºóÖØĞÂ´ò¿ªÁ¬½Ó"
+            self.infoText.SetValue(msg)
+            #self.saveBtn.Enable(True)
         sock.close()
 
 
 if __name__ == '__main__':  
     App().main()
 
-
-    
