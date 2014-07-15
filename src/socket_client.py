@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+# client code
 
 #import os
 import socket

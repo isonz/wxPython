@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+# service code 
 
 #use : python ssh.py ison dev.skin.ptp.cn dev/skin.ptp.cn
 #use : python ssh.py root stop
