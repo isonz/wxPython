@@ -21,7 +21,7 @@ class App(wx.App):
         
         self._panel = wx.Panel(self._win)
         
-        title = wx.StaticText(self._panel, label="帕斯婷系统上线工具",)
+        title = wx.StaticText(self._panel, label="帕斯婷SSO系统上线工具",)
         font = wx.Font(14, wx.DECORATIVE, wx.NORMAL, wx.BOLD)  
         title.SetFont(font)
         hr = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
@@ -40,7 +40,7 @@ class App(wx.App):
         self._win.Bind(wx.EVT_BUTTON, self.btnClick, restartBtn)
         
         self.infoText = wx.TextCtrl(self._panel,style=wx.TE_MULTILINE | wx.HSCROLL)
-        self.infoText.SetValue("操之之前，请确保要更新的 war 文件名为 sso.war，并上传至 ftp 目录。\n")
+        self.infoText.SetValue("操作之前，请确保要更新的 war 文件名为 sso.war，并上传至 ftp 目录。\n")
                                
         tbox = wx.BoxSizer(wx.VERTICAL)
         tbox.Add(title, proportion=1, flag=wx.ALIGN_CENTER)
