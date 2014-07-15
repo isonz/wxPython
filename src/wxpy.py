@@ -122,7 +122,7 @@ class App(wx.App):
             for buf in bufs.split(","):
                 i=i+1
                 #if 3>=i: continue
-                msg = buf.replace('\\r\\n', '').replace('\'', '').replace('[', '').replace(']', '').replace('\\n', '')
+                msg = buf.replace('\\r\\n', '').replace('\'', '').replace('[', '').replace(']', '').replace('\\n', '').replace('\\r', '')
                 self.infoText.SetValue(self.infoText.GetValue()+"\n"+msg)
                 self.saveBtn.Enable(True)
         #except socket.error, arg:
