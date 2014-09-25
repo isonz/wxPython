@@ -1,4 +1,4 @@
-python D:\Python\PyInstaller-2.1\pyinstaller.py -Fwdc --icon="icon.ico" wxpy.py
+python D:\Python\PyInstaller-2.1\pyinstaller.py -Fw --icon="images\icon.ico" wxpy.py
 
 python D:\Python\PyInstaller-2.1\pyinstaller.py -Fwdc --icon="icon.ico" wxpy.py
 

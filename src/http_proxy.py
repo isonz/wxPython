@@ -14,8 +14,7 @@ class Proxy:
         self.targetHost=None
     def getClientRequest(self):
         request=self.client.recv(self.BUFSIZE)
-        if not request:
-            return None
+        if not request: return None
         cn=request.find('\n')
         firstLine=request[:cn]
         print firstLine[:len(firstLine)-9]

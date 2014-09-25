@@ -18,7 +18,7 @@ class App(wx.App):
     def main(self):
         app=wx.App()  
         #win=wx.Frame(None,-1,'Icon',wx.DefaultPosition,wx.Size(350,300))
-        self._win=wx.Frame(None, title="帕斯婷系统上线工具", size=(700,300))  
+        self._win=wx.Frame(None, title="帕斯婷系统上线工具", size=(850,300))  
         #frame.SetIcon(wx.Icon('ico.ico',wx.BITMAP_TYPE_ICO))
         
         self._panel = wx.Panel(self._win)
@@ -39,6 +39,8 @@ class App(wx.App):
         brandCheck.SetValue(False)
         wwwCheck = wx.CheckBox(self._panel, 10005, label="www.ptp.cn")
         wwwCheck.SetValue(False)
+        wwwpstCheck = wx.CheckBox(self._panel, 10006, label="www.placentin.cn")
+        wwwpstCheck.SetValue(False)
         self._win.Bind(wx.EVT_CHECKBOX, self.ONCheck)
         
         
@@ -55,7 +57,8 @@ class App(wx.App):
         cbox.Add(skinCheck,proportion=0)
         cbox.Add(aboutCheck,proportion=0)
         cbox.Add(brandCheck,proportion=0)
-        cbox.Add(wwwCheck,proportion=0)   
+        cbox.Add(wwwCheck,proportion=0)
+        cbox.Add(wwwpstCheck,proportion=0)   
         
         bbox = wx.BoxSizer(wx.VERTICAL)
         bbox.Add(tbox, proportion=0, flag=wx.EXPAND)
@@ -90,6 +93,7 @@ class App(wx.App):
         if 10003==ids: return ("about.ptp.cn","about.ptp.cn")
         if 10004==ids: return ("brand.ptp.cn","brand.ptp.cn")
         if 10005==ids: return ("www.ptp.cn","www.ptp.cn")
+        if 10006==ids: return ("www.placentin.com","www.placentin.com")
     
     def saveBtnClick(self, event):
         dlg=wx.MessageDialog(None,"确定提交吗?","提示信息",wx.YES_NO|wx.ICON_QUESTION)
