@@ -18,7 +18,7 @@ class App(wx.App):
     def main(self):
         app=wx.App()  
         #win=wx.Frame(None,-1,'Icon',wx.DefaultPosition,wx.Size(350,300))
-        self._win=wx.Frame(None, title="帕斯婷系统上线工具", size=(850,300))  
+        self._win=wx.Frame(None, title="帕斯婷系统上线工具", size=(800,300))  
         #frame.SetIcon(wx.Icon('ico.ico',wx.BITMAP_TYPE_ICO))
         
         self._panel = wx.Panel(self._win)
@@ -29,9 +29,9 @@ class App(wx.App):
         hr = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         hr1 = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         
-        devCheck = wx.CheckBox(self._panel, 10001, label="dev.(skin/mall).ptp.cn [手机端]  ")
+        devCheck = wx.CheckBox(self._panel, 10001, label="dev.(skin/mall).ptp.cn")
         devCheck.SetValue(False)
-        skinCheck = wx.CheckBox(self._panel, 10002, label="(skin/mall).ptp.cn [手机端]  ")
+        skinCheck = wx.CheckBox(self._panel, 10002, label="(skin/mall).ptp.cn")
         skinCheck.SetValue(False)
         aboutCheck = wx.CheckBox(self._panel, 10003, label="about.ptp.cn  ")
         aboutCheck.SetValue(False)
@@ -41,6 +41,8 @@ class App(wx.App):
         wwwCheck.SetValue(False)
         wwwpstCheck = wx.CheckBox(self._panel, 10006, label="www.placentin.cn")
         wwwpstCheck.SetValue(False)
+        adminCheck = wx.CheckBox(self._panel, 10007, label="skin_admin.ptp.cn")
+        adminCheck.SetValue(False)
         self._win.Bind(wx.EVT_CHECKBOX, self.ONCheck)
         
         
@@ -58,11 +60,16 @@ class App(wx.App):
         cbox.Add(aboutCheck,proportion=0)
         cbox.Add(brandCheck,proportion=0)
         cbox.Add(wwwCheck,proportion=0)
-        cbox.Add(wwwpstCheck,proportion=0)   
+        cbox.Add(wwwpstCheck,proportion=0)
+        
+        apbox = wx.BoxSizer()
+        apbox.Add(adminCheck,proportion=0)
         
         bbox = wx.BoxSizer(wx.VERTICAL)
         bbox.Add(tbox, proportion=0, flag=wx.EXPAND)
-        bbox.Add(cbox, proportion=0, flag=wx.CENTER)
+        #bbox.Add(cbox, proportion=0, flag=wx.CENTER)
+        bbox.Add(cbox, proportion=0, flag=wx.LEFT)
+        bbox.Add(apbox, proportion=0, flag=wx.LEFT)
         bbox.Add(hr1, proportion=0, flag=wx.EXPAND)
         bbox.Add(self.saveBtn,proportion=0, flag=wx.CENTER, border=5)
         bbox.Add(self.infoText, proportion=1, flag=wx.EXPAND)
@@ -94,6 +101,7 @@ class App(wx.App):
         if 10004==ids: return ("brand.ptp.cn","brand.ptp.cn")
         if 10005==ids: return ("www.ptp.cn","www.ptp.cn")
         if 10006==ids: return ("www.placentin.com","www.placentin.com")
+        if 10007==ids: return ("skin_admin.ptp.cn","skin_admin.ptp.cn")
     
     def saveBtnClick(self, event):
         dlg=wx.MessageDialog(None,"确定提交吗?","提示信息",wx.YES_NO|wx.ICON_QUESTION)
