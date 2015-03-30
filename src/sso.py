@@ -16,7 +16,7 @@ class App(wx.App):
     def main(self):
         app=wx.App()  
         #win=wx.Frame(None,-1,'Icon',wx.DefaultPosition,wx.Size(350,300))
-        self._win=wx.Frame(None, title="帕斯婷SSO系统上线工具", size=(700,300))  
+        self._win=wx.Frame(None, title="帕斯婷SSO系统上线工具", size=(900,300))  
         #frame.SetIcon(wx.Icon('ico.ico',wx.BITMAP_TYPE_ICO))
         
         self._panel = wx.Panel(self._win)
@@ -32,12 +32,16 @@ class App(wx.App):
         buildBtn =      wx.Button(self._panel, 10003, label="3 更新代码")
         startBtn =      wx.Button(self._panel, 10004, label="4 启动服务")
         restartBtn =    wx.Button(self._panel, 10005, label="0 重启服务")
+        startDebugBtn =    wx.Button(self._panel, 10006, label="5 启动Debug模式(先按 1 按钮)")
+        stopDebugBtn =    wx.Button(self._panel, 10007, label="6 停止Debug模式(必须之前有启动)")
         
         self._win.Bind(wx.EVT_BUTTON, self.btnClick, stopBtn)
         self._win.Bind(wx.EVT_BUTTON, self.btnClick, backupBtn)
         self._win.Bind(wx.EVT_BUTTON, self.btnClick, buildBtn)
         self._win.Bind(wx.EVT_BUTTON, self.btnClick, startBtn)
         self._win.Bind(wx.EVT_BUTTON, self.btnClick, restartBtn)
+        self._win.Bind(wx.EVT_BUTTON, self.btnClick, startDebugBtn)
+        self._win.Bind(wx.EVT_BUTTON, self.btnClick, stopDebugBtn)
         
         self.infoText = wx.TextCtrl(self._panel,style=wx.TE_MULTILINE | wx.HSCROLL)
         self.infoText.SetValue("操作之前，请确保要更新的 war 文件名为 sso.war，并上传至 ftp 目录。\n")
@@ -51,7 +55,9 @@ class App(wx.App):
         cbox.Add(backupBtn,proportion=0)
         cbox.Add(buildBtn,proportion=0)
         cbox.Add(startBtn,proportion=0)
-        cbox.Add(restartBtn,proportion=0)   
+        cbox.Add(restartBtn,proportion=0)
+        cbox.Add(startDebugBtn,proportion=0)  
+        cbox.Add(stopDebugBtn,proportion=0)
         
         bbox = wx.BoxSizer(wx.VERTICAL)
         bbox.Add(tbox, proportion=0, flag=wx.EXPAND)
@@ -72,6 +78,8 @@ class App(wx.App):
         if 10003==ids: return "build"
         if 10004==ids: return "start"
         if 10005==ids: return "restart"
+        if 10006==ids: return "catalina_jpda_start"
+        if 10007==ids: return "catalina_jpda_stop"
     
     def btnClick(self, event):
         dlg=wx.MessageDialog(None,"确定提交吗?","提示信息",wx.YES_NO|wx.ICON_QUESTION)
