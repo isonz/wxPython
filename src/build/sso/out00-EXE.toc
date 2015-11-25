@@ -1,0 +1,9 @@
+('E:\\Python\\Webpy\\src\\dist\\sso.exe',
+ False,
+ False,
+ 'images\\sso.ico',
+ None,
+ [],
+ None,
+ False,
+ 1448435063L)

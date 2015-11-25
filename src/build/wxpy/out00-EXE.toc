@@ -1,0 +1,9 @@
+('E:\\Python\\Webpy\\src\\dist\\wxpy.exe',
+ False,
+ False,
+ 'images\\icon.ico',
+ None,
+ [],
+ None,
+ False,
+ 1448437141L)

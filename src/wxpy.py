@@ -29,20 +29,18 @@ class App(wx.App):
         hr = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         hr1 = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         
-        devCheck = wx.CheckBox(self._panel, 10001, label="dev.(skin/mall).ptp.cn")
-        devCheck.SetValue(False)
-        skinCheck = wx.CheckBox(self._panel, 10002, label="(skin/mall).ptp.cn")
-        skinCheck.SetValue(False)
-        aboutCheck = wx.CheckBox(self._panel, 10003, label="about.ptp.cn  ")
-        aboutCheck.SetValue(False)
-        brandCheck = wx.CheckBox(self._panel, 10004, label="brand.ptp.cn  ")
-        brandCheck.SetValue(False)
-        wwwCheck = wx.CheckBox(self._panel, 10005, label="www.ptp.cn")
+        wwwCheck = wx.CheckBox(self._panel, 10001, label="www.ptp.cn")
         wwwCheck.SetValue(False)
-        wwwpstCheck = wx.CheckBox(self._panel, 10006, label="www.placentin.cn")
+        devCheck = wx.CheckBox(self._panel, 10002, label="dev.placentin.com/erase")
+        devCheck.SetValue(False)
+        wwwpstCheck = wx.CheckBox(self._panel, 10003, label="www.placentin.com")
         wwwpstCheck.SetValue(False)
-        adminCheck = wx.CheckBox(self._panel, 10007, label="skin_admin.ptp.cn")
+        adminCheck = wx.CheckBox(self._panel, 10004, label="admins.placentin.com.cn")
         adminCheck.SetValue(False)
+        FXCheck = wx.CheckBox(self._panel, 10005, label="fx.ptp.cn")
+        FXCheck.SetValue(False)
+        FXAdminCheck = wx.CheckBox(self._panel, 10006, label="admin.fx.ptp.cn")
+        FXAdminCheck.SetValue(False)
         self._win.Bind(wx.EVT_CHECKBOX, self.ONCheck)
         
         
@@ -56,14 +54,13 @@ class App(wx.App):
         
         cbox = wx.BoxSizer()
         cbox.Add(devCheck,proportion=0)
-        cbox.Add(skinCheck,proportion=0)
-        cbox.Add(aboutCheck,proportion=0)
-        cbox.Add(brandCheck,proportion=0)
+        cbox.Add(FXCheck,proportion=0)
         cbox.Add(wwwCheck,proportion=0)
         cbox.Add(wwwpstCheck,proportion=0)
         
         apbox = wx.BoxSizer()
         apbox.Add(adminCheck,proportion=0)
+        apbox.Add(FXAdminCheck,proportion=0)
         
         bbox = wx.BoxSizer(wx.VERTICAL)
         bbox.Add(tbox, proportion=0, flag=wx.EXPAND)
@@ -95,13 +92,12 @@ class App(wx.App):
             self.checked.remove(self.checkIdValMap(sender.GetId()))
     
     def checkIdValMap(self, ids):
-        if 10001==ids: return ("dev.skin.ptp.cn","dev/skin.ptp.cn")
-        if 10002==ids: return ("skin.ptp.cn","skin.ptp.cn")
-        if 10003==ids: return ("about.ptp.cn","about.ptp.cn")
-        if 10004==ids: return ("brand.ptp.cn","brand.ptp.cn")
-        if 10005==ids: return ("www.ptp.cn","www.ptp.cn")
-        if 10006==ids: return ("www.placentin.com","www.placentin.com")
-        if 10007==ids: return ("skin_admin.ptp.cn","skin_admin.ptp.cn")
+        if 10001==ids: return ("www.ptp.cn","www.ptp.cn")
+        if 10002==ids: return ("dev.placentin.com_erase","dev/erase")
+        if 10003==ids: return ("www.placentin.com","www.placentin.com")
+        if 10004==ids: return ("admins.placentin.com.cn","admins.placentin.com.cn")
+        if 10005==ids: return ("fx.ptp.cn","fx.ptp.cn")
+        if 10006==ids: return ("admin.fx.ptp.cn","admin.fx.ptp.cn")
     
     def saveBtnClick(self, event):
         dlg=wx.MessageDialog(None,"确定提交吗?","提示信息",wx.YES_NO|wx.ICON_QUESTION)
@@ -127,7 +123,7 @@ class App(wx.App):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #socket.setdefaulttimeout(10)
         try:
-            sock.connect(('192.168.77.200', 8001))
+            sock.connect(('192.168.75.200', 8001))
             sock.send(text)  
             bufs = sock.recv(10024)
             i=0
