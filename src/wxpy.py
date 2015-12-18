@@ -123,7 +123,7 @@ class App(wx.App):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #socket.setdefaulttimeout(10)
         try:
-            sock.connect(('192.168.75.200', 8001))
+            sock.connect(('192.168.75.140', 8001))
             sock.send(text)  
             bufs = sock.recv(10024)
             i=0
