@@ -44,7 +44,7 @@ class App(wx.App):
         self._win.Bind(wx.EVT_BUTTON, self.btnClick, stopDebugBtn)
         
         self.infoText = wx.TextCtrl(self._panel,style=wx.TE_MULTILINE | wx.HSCROLL)
-        self.infoText.SetValue("操作之前，请确保要更新的 war 文件名为 sso.war，并上传至 ftp 目录。\n")
+        self.infoText.SetValue("操作之前，请确保上传的是 项目名.war 文件， sso.war 要改名为 ROOT.war，并上传至 ftp 目录。\n")
                                
         tbox = wx.BoxSizer(wx.VERTICAL)
         tbox.Add(title, proportion=1, flag=wx.ALIGN_CENTER)
