@@ -28,6 +28,7 @@ class App(wx.App):
         title.SetFont(font)
         hr = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         hr1 = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
+        hr2 = wx.StaticLine(self._panel,1,style=wx.LI_HORIZONTAL)
         
         wwwCheck = wx.CheckBox(self._panel, 10001, label="www.ptp.cn")
         wwwCheck.SetValue(False)
@@ -41,6 +42,14 @@ class App(wx.App):
         FXCheck.SetValue(False)
         FXAdminCheck = wx.CheckBox(self._panel, 10006, label="admin.fx.ptp.cn")
         FXAdminCheck.SetValue(False)
+        
+        ptpDev = wx.CheckBox(self._panel, 10007, label="ptp.dev.placentin.com")
+        ptpDev.SetValue(False)
+        ptpStatic = wx.CheckBox(self._panel, 10008, label="static.ptp.cn")
+        ptpStatic.SetValue(False)
+        appWebChat = wx.CheckBox(self._panel, 10009, label="webchat.app.ptp.cn")
+        appWebChat.SetValue(False)
+        
         self._win.Bind(wx.EVT_CHECKBOX, self.ONCheck)
         
         
@@ -53,21 +62,26 @@ class App(wx.App):
         tbox.Add(hr, proportion=0, flag=wx.EXPAND)
         
         cbox = wx.BoxSizer()
-        cbox.Add(devCheck,proportion=0)
-        cbox.Add(FXCheck,proportion=0)
         cbox.Add(wwwCheck,proportion=0)
-        cbox.Add(wwwpstCheck,proportion=0)
+        cbox.Add(ptpStatic,proportion=0)
+        cbox.Add(adminCheck,proportion=0)
+        
+        cbox.Add(FXCheck,proportion=0)
+        cbox.Add(FXAdminCheck,proportion=0)
         
         apbox = wx.BoxSizer()
-        apbox.Add(adminCheck,proportion=0)
-        apbox.Add(FXAdminCheck,proportion=0)
+        apbox.Add(ptpDev,proportion=0)
+        apbox.Add(devCheck,proportion=0)
+        apbox.Add(wwwpstCheck,proportion=0)
+        apbox.Add(appWebChat,proportion=0)
         
         bbox = wx.BoxSizer(wx.VERTICAL)
         bbox.Add(tbox, proportion=0, flag=wx.EXPAND)
         #bbox.Add(cbox, proportion=0, flag=wx.CENTER)
         bbox.Add(cbox, proportion=0, flag=wx.LEFT)
-        bbox.Add(apbox, proportion=0, flag=wx.LEFT)
         bbox.Add(hr1, proportion=0, flag=wx.EXPAND)
+        bbox.Add(apbox, proportion=0, flag=wx.LEFT)
+        bbox.Add(hr2, proportion=0, flag=wx.EXPAND)
         bbox.Add(self.saveBtn,proportion=0, flag=wx.CENTER, border=5)
         bbox.Add(self.infoText, proportion=1, flag=wx.EXPAND)
         
@@ -98,6 +112,9 @@ class App(wx.App):
         if 10004==ids: return ("admins.placentin.com.cn","admins.placentin.com.cn")
         if 10005==ids: return ("fx.ptp.cn","fx.ptp.cn")
         if 10006==ids: return ("admin.fx.ptp.cn","admin.fx.ptp.cn")
+        if 10007==ids: return ("ptp.dev.placentin.com","dev/ptp/www")
+        if 10008==ids: return ("static.ptp.cn","static.ptp.cn")
+        if 10009==ids: return ("webchat.app.ptp.cn","app.ptp.cn/webchat/front")
     
     def saveBtnClick(self, event):
         dlg=wx.MessageDialog(None,"确定提交吗?","提示信息",wx.YES_NO|wx.ICON_QUESTION)
